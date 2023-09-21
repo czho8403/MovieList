@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <input v-model="searchQuery" placeholder="輸入電影名稱">
+    <button @click="searchMovies">搜索</button>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'; // 导入Axios库
+
+export default {
+  data() {
+    return {
+      searchQuery: "",
+    };
+  },
+  methods: {
+  async searchMovies() {
+    try {
+      const response = await axios.get("https://www.omdbapi.com/", {
+        params: {
+          apikey: "82c8d948",
+          s: this.searchQuery,
+        },
+      });
+    } catch (error) {
+      console.error("搜索电影时出错：", error);
+    }
+  },
+},
+};
+</script>
